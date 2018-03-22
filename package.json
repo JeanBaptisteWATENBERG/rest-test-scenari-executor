@@ -1,0 +1,36 @@
+{
+  "name": "test-frisby",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watchAll"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jsonpath": "^1.0.0",
+    "openapi3-ts": "^0.8.0"
+  },
+  "devDependencies": {
+    "@types/frisby": "^2.0.1",
+    "frisby": "^2.0.14",
+    "jest": "^22.4.2",
+    "ts-jest": "^22.4.2",
+    "typescript": "^2.7.2"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  }
+}

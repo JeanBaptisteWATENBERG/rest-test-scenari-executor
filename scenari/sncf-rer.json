@@ -1,0 +1,83 @@
+{
+    "name": "Sncf rer scenario",
+    "description": "A sample scenario thtat ensure sncf API is listing RER in it's commercial transportation modes.",
+    "author": "Jean-Baptiste WATENBERG",
+    "tenantId": "1",
+    "scenario": [
+      {
+        "type": "authentication",
+        "authenticationType": "basic",
+        "username": "TBD",
+        "password": ""
+      },
+      {
+        "type": "path",
+        "url": "https://api.sncf.com/v1",
+        "operation": {
+          "path": "/coverage/sncf/commercial_modes",
+          "method": "get",
+          "operationId": "getCommercialModes",
+          "summary": "List commercial modes",
+          "description": "List all commercial modes available"
+        },
+        "accept": "application/json",
+        "asserts": [
+          {
+            "in": "header",
+            "field": "status",
+            "type": "equals",
+            "expect": "200"
+          },
+          {
+            "in": "body",
+            "type": "contains",
+            "expect": "RER"
+          }
+        ],
+        "extracts": [
+          {
+            "in": "body",
+            "field": "$.commercial_modes[?(@.name == 'RER')].id",
+            "as": "rerId"
+          }
+        ]
+      },
+      {
+        "type": "path",
+        "url": "https://api.sncf.com/v1",
+        "operation": {
+          "path": "/coverage/sncf/commercial_modes/{modeId}",
+          "method": "get",
+          "operationId": "getCommercialMode",
+          "summary": "List a specific commercial mode",
+          "parameters": [
+            { 
+              "name": "modeId",
+              "in": "path",
+              "required": true,
+              "description": "The id of the pet to retrieve",
+              "schema": {
+                "type": "string",
+                "x-value": "${rerId}"
+              }
+            }
+          ]
+        },
+        "accept": "application/json",
+        "asserts": [
+          {
+            "in": "header",
+            "field": "status",
+            "type": "equals",
+            "expect": "200"
+          },
+          {
+            "in": "body",
+            "field": "$.commercial_modes[?(@.name == 'RER')].id",
+            "type": "equals",
+            "expect": "${rerId}"
+          }
+        ]
+      }
+    ]
+  }

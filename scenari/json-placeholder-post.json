@@ -1,0 +1,143 @@
+{
+    "name": "JSONPlaceholder post scenario",
+    "description": "A sample scenario that ensure post ressources behavior.",
+    "author": "Jean-Baptiste WATENBERG",
+    "tenantId": "1",
+    "scenario": [
+        {
+            "type": "path",
+            "url": "http://jsonplaceholder.typicode.com",
+            "operation": {
+                "path": "/posts",
+                "method": "get",
+                "operationId": "getPosts",
+                "summary": "List posts",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "query",
+                        "description": "filter posts by userId",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ]
+            },
+            "accept": "application/json",
+            "asserts": [
+                {
+                    "in": "header",
+                    "field": "status",
+                    "type": "equals",
+                    "expect": "200"
+                }
+            ],
+            "extracts": [
+                {
+                    "in": "body",
+                    "field": "$[:1].userId",
+                    "as": "userId"
+                }
+            ]
+        },
+        {
+            "type": "path",
+            "url": "http://jsonplaceholder.typicode.com",
+            "operation": {
+                "path": "/posts",
+                "method": "get",
+                "operationId": "getPosts",
+                "summary": "List posts",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "query",
+                        "description": "filter posts by userId",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32",
+                            "x-value": "${userId}"
+                        }
+                    }
+                ]
+            },
+            "accept": "application/json",
+            "asserts": [
+                {
+                    "in": "header",
+                    "field": "status",
+                    "type": "equals",
+                    "expect": "200"
+                },
+                {
+                    "in": "body",
+                    "type": "notContains",
+                    "expect": "\"userId\": 9"
+                }
+            ]
+        },
+        {
+            "type": "path",
+            "url": "http://jsonplaceholder.typicode.com",
+            "operation": {
+                "path": "/posts",
+                "method": "post",
+                "operationId": "createPost",
+                "summary": "Create a post",
+                "requestBody": {
+                    "description": "Post to be created",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "userId": {
+                                        "type": "integer",
+                                        "format": "int32"
+                                    },
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "body": {
+                                        "type": "string"
+                                    }
+                                },
+                                "x-value": "{\"title\":\"sample title\",\"body\":\"sample body\",\"userId\":1}"
+                            }
+                        }
+                    }
+                }
+            },
+            "accept": "application/json",
+            "asserts": [
+                {
+                    "in": "header",
+                    "field": "status",
+                    "type": "equals",
+                    "expect": "201"
+                },
+                {
+                    "in": "body",
+                    "field":"$.userId",
+                    "type": "equals",
+                    "expect": "1"
+                },
+                {
+                    "in": "body",
+                    "field":"$.title",
+                    "type": "equals",
+                    "expect": "sample title"
+                },
+                {
+                    "in": "body",
+                    "field":"$.body",
+                    "type": "equals",
+                    "expect": "sample body"
+                }
+            ]
+        }
+    ]
+}
