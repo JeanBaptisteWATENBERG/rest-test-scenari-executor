@@ -3,7 +3,7 @@
 The goal of this project is to read a test scenario from a json file 
 and execute the tests against the REST ressources.
 
-This is an experiment based on Jest and Frisby.
+This is an experiment based on [Jest](https://facebook.github.io/jest/) and [Frisby](https://www.frisbyjs.com/).
 
 ## Set the scenario
 
