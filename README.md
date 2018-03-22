@@ -7,7 +7,7 @@ This is an experiment based on [Jest](https://facebook.github.io/jest/) and [Fri
 
 ## Set the scenario
 
-In index.spec.ts, replace `require('../scenari/json-placeholder-post.json')` by the scenario spec you want to execute.
+In [index.spec.ts](/src/index.spec.ts) file, replace `require('../scenari/json-placeholder-post.json')` by the scenario spec you want to execute.
 
 You can find some scenario spec samples in the [scenari](/scenari) folder.
 
