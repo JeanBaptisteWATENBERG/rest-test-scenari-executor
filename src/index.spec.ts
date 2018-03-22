@@ -1,6 +1,5 @@
 import { ScenarioDescription } from './models/ScenarioDescription';
 import { AuthenticationScenarioItem, BasicAuthenticationScenarioItem } from './models/ScenarioItem';
-import { assert } from 'joi/index';
 import { evalContentVariable, expectAssertAsJest, assertHeader, assertBody } from './utils';
 import { evalPathParameters, buildPathWithParameters } from './pathUtils';
 import { evalQueryParameters, buildPathWithQueryParams } from './queryParamsUtils';
@@ -42,7 +41,6 @@ const createTestForScenarioItem = (scenarioItem) => {
     const pathWithQueryParams = buildPathWithQueryParams(queryParams, pathWithParameters);
     const parameterHeaders: any = {};
     const body = evaluateBody(scenarioItem, parameterHeaders, extractedVariables);
-
 
     frisby
       .fetch(`${baseUrl}${pathWithQueryParams}`, {
