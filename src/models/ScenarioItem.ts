@@ -1,27 +1,27 @@
+import { IAssertion } from './Assertion';
+import { IExtraction } from './Extraction';
+import { IOperation } from './Operation';
 import { Variable } from './Variable';
-import { Assertion } from './Assertion';
-import { Extraction } from './Extraction';
-import { Operation } from './Operation';
 
-export type ScenarioItem = BasicAuthenticationScenarioItem | PathScenarioItem;
+export type ScenarioItem = IBasicAuthenticationScenarioItem | IPathScenarioItem;
 
-export interface AuthenticationScenarioItem {
+export interface IAuthenticationScenarioItem {
     authenticationType: string;
 }
 
-export interface BasicAuthenticationScenarioItem extends AuthenticationScenarioItem {
+export interface IBasicAuthenticationScenarioItem extends IAuthenticationScenarioItem {
     type: 'authentication';
     authenticationType: 'basic';
     username?: string | Variable;
     password?: string | Variable;
 }
 
-export interface PathScenarioItem {
+export interface IPathScenarioItem {
     type: 'path';
     url: string;
-    operation: Operation;
+    operation: IOperation;
     contentType?: string;
     accept: string;
-    asserts: Assertion[];
-    extracts?: Extraction[];
+    asserts: IAssertion[];
+    extracts?: IExtraction[];
 }

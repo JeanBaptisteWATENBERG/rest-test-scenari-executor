@@ -1,6 +1,6 @@
 import {ParameterObject, RequestBodyObject} from 'openapi3-ts';
 
-export interface Operation {
+export interface IOperation {
     path: string;
     method: string;
     operationId: string;

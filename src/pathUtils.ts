@@ -1,13 +1,16 @@
-import { evalContentVariable } from "./utils";
+import { evalContentVariable } from './utils';
 
 export const evalPathParameters = (scenarioItem, variables) =>
   scenarioItem.operation.parameters ?
     scenarioItem.operation.parameters
-      .filter(param => param.in === 'path')
-      .map(param => {
+      .filter((param) => param.in === 'path')
+      .map((param) => {
         return {
           name: param.name,
-          value: evalContentVariable(variables, param.schema['x-value'])
+          value: evalContentVariable({
+            content: param.schema['x-value'],
+            variables,
+          }),
         };
       })
     : null;
@@ -15,11 +18,11 @@ export const evalPathParameters = (scenarioItem, variables) =>
 export const buildPathWithParameters = (path: any, pathParameters: any) => {
   let pathWithParameters = path;
   if (pathParameters) {
-    pathParameters.forEach(param => {
+    pathParameters.forEach((param) => {
       if (param.value) {
         pathWithParameters = pathWithParameters.replace(`{${param.name}}`, param.value);
       }
     });
   }
   return pathWithParameters;
-}
+};

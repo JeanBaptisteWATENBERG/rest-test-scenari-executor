@@ -1,6 +1,6 @@
 import {ScenarioItem} from './ScenarioItem';
 
-export interface ScenarioDescription {
+export interface IScenarioDescription {
     name: string;
     description?: string;
     author: string;
