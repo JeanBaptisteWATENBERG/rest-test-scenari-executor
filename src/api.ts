@@ -3,12 +3,14 @@ import { IAuthenticationScenarioItem } from './models/ScenarioItem';
 import { createTestForScenarioItem } from './utils';
 
 import bodyParser = require('body-parser');
+import cors = require('cors');
 import express = require('express');
 
 const app = express();
 
 // parse application/json
 app.use(bodyParser.json());
+app.use(cors());
 
 app.post('/scenari/run', async (req, res) => {
   const scenarioDescription: IScenarioDescription = req.body;
